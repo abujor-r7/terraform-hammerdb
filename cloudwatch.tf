@@ -15,9 +15,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           stat = "Average",
           period = 300,
           metrics = [
-            ["AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", "db-proxy-testbed-instance-1"],
-            ["AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", "db-proxy-testbed-instance-2"],
-            ["AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", "db-proxy-testbed-instance-3"],
+            ["AWS/RDS", "CPUUtilization", "DBInstanceIdentifier", "${aws_db_instance.hammerdb_dev.id}"],
           ]
         }
       },
@@ -34,9 +32,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           stat = "Average",
           period = 300,
           metrics = [
-            ["AWS/RDS", "DBLoad", "DBInstanceIdentifier", "db-proxy-testbed-instance-1"],
-            ["AWS/RDS", "DBLoad", "DBInstanceIdentifier", "db-proxy-testbed-instance-2"],
-            ["AWS/RDS", "DBLoad", "DBInstanceIdentifier", "db-proxy-testbed-instance-3"],
+            ["AWS/RDS", "DBLoad", "DBInstanceIdentifier", "${aws_db_instance.hammerdb_dev.id}"],
           ]
         }
       },
@@ -53,9 +49,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           stat = "Average",
           period = 300,
           metrics = [
-            ["AWS/RDS", "DBLoadCPU", "DBInstanceIdentifier", "db-proxy-testbed-instance-1"],
-            ["AWS/RDS", "DBLoadCPU", "DBInstanceIdentifier", "db-proxy-testbed-instance-2"],
-            ["AWS/RDS", "DBLoadCPU", "DBInstanceIdentifier", "db-proxy-testbed-instance-3"],
+            ["AWS/RDS", "DBLoadCPU", "DBInstanceIdentifier", "${aws_db_instance.hammerdb_dev.id}"],
           ]
         }
       },
@@ -72,9 +66,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           stat = "Average",
           period = 300,
           metrics = [
-            ["AWS/RDS", "DBLoadNonCPU", "DBInstanceIdentifier", "db-proxy-testbed-instance-1"],
-            ["AWS/RDS", "DBLoadNonCPU", "DBInstanceIdentifier", "db-proxy-testbed-instance-2"],
-            ["AWS/RDS", "DBLoadNonCPU", "DBInstanceIdentifier", "db-proxy-testbed-instance-3"],
+            ["AWS/RDS", "DBLoadNonCPU", "DBInstanceIdentifier","${aws_db_instance.hammerdb_dev.id}"],
           ]
         }
       },
@@ -91,9 +83,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           stat = "Average",
           period = 300,
           metrics = [
-            ["AWS/RDS", "DBLoadRelativeToNumVCPUs", "DBInstanceIdentifier", "db-proxy-testbed-instance-1"],
-            ["AWS/RDS", "DBLoadRelativeToNumVCPUs", "DBInstanceIdentifier", "db-proxy-testbed-instance-2"],
-            ["AWS/RDS", "DBLoadRelativeToNumVCPUs", "DBInstanceIdentifier", "db-proxy-testbed-instance-3"],
+            ["AWS/RDS", "DBLoadRelativeToNumVCPUs", "DBInstanceIdentifier", "${aws_db_instance.hammerdb_dev.id}"],
           ]
         }
       },
@@ -110,9 +100,7 @@ resource "aws_cloudwatch_dashboard" "ecs_dashboard" {
           stat = "Average",
           period = 300,
           metrics = [
-            ["AWS/RDS", "DatabaseConnections", "DBInstanceIdentifier", "db-proxy-testbed-instance-1"],
-            ["AWS/RDS", "DatabaseConnections", "DBInstanceIdentifier", "db-proxy-testbed-instance-2"],
-            ["AWS/RDS", "DatabaseConnections", "DBInstanceIdentifier", "db-proxy-testbed-instance-3"],
+            ["AWS/RDS", "DatabaseConnections", "DBInstanceIdentifier", "${aws_db_instance.hammerdb_dev.id}"],
           ]
         }
       }
