@@ -24,4 +24,21 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "bastion_ami" {
+  description = "AMI ID for the bastion host"
+  default     = "ami-0b65d57be27e8f4e7" 
+# aws ec2 describe-images \
+#   --owners amazon \
+#   --filters "Name=name,Values=amzn2-ami-hvm-*-x86_64-gp2" \
+#             "Name=state,Values=available" \
+#   --query 'Images[*].[ImageId,CreationDate]' \
+#   --region eu-central-1 \
+#   --output text | sort -k2 -r | head -n 1'  
+ 
+}
 
+variable "key_pair_name" {
+  description = "Name of the key pair to use for SSH access"
+  type = string
+  
+}

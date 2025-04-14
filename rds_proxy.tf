@@ -39,3 +39,18 @@ resource "aws_db_proxy" "testbed_proxy" {
     Name = "testbed-db-proxy"
   }
 }
+
+resource "aws_db_proxy_default_target_group" "default_group" {
+  db_proxy_name = aws_db_proxy.testbed_proxy.name
+  connection_pool_config {
+    max_idle_connections_percent = 50
+    max_connections_percent = 100
+    connection_borrow_timeout = 120
+    session_pinning_filters = [ "EXCLUDE_VARIABLE_SETS" ]
+  }
+}
+resource "aws_db_proxy_target" "hammerdb_proxy_target" {
+  db_instance_identifier = aws_db_instance.hammerdb_dev.identifier
+  db_proxy_name          = aws_db_proxy.testbed_proxy.name
+  target_group_name      = "default"
+}
