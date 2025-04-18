@@ -1,0 +1,5 @@
+- name: Provision Bastion Host
+  hosts: bastion
+  become: true
+  roles:
+    - bastion

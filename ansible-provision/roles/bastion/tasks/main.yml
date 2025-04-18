@@ -1,0 +1,41 @@
+- name: Add MySQL Yum Repository
+  yum_repository:
+    name: mysql57-community
+    description: MySQL 5.7 Community Server
+    baseurl: https://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/
+    gpgcheck: no
+    gpgkey: https://repo.mysql.com/RPM-GPG-KEY-mysql
+    enabled: yes
+
+- name: Clean Yum Cache
+  command: yum clean all
+
+- name: Make Yum Cache
+  command: yum makecache
+
+- name: Import MySQL GPG Key
+  rpm_key:
+    state: present
+    key: https://repo.mysql.com/RPM-GPG-KEY-mysql
+
+- name: Install MySQL Client
+  command: yum install -y mysql-community-client
+
+- name: Set Environment Variables for DB Host
+  lineinfile:
+    path: /home/ec2-user/.bash_profile
+    line: 'export DB_HOST={{ db_host }}'
+    create: yes
+
+- name: Set Environment Variables for DB User
+  lineinfile:
+    path: /home/ec2-user/.bash_profile
+    line: 'export DB_USER={{ db_user }}'
+    create: yes
+
+- name: Set Environment Variables for DB Password  
+  lineinfile:
+    path: /home/ec2-user/.bash_profile
+    line: 'export DB_PASSWORD={{ db_password }}'
+    create: yes
+  
