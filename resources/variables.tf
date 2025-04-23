@@ -26,10 +26,10 @@ variable "db_password" {
 
 variable "bastion_ami" {
   description = "AMI ID for the bastion host"
-  default     = "ami-0b65d57be27e8f4e7" 
+  default     = "ami-0d8d11821a1c1678b" 
 # aws ec2 describe-images \
 #   --owners amazon \
-#   --filters "Name=name,Values=amzn2-ami-hvm-*-x86_64-gp2" \
+#   --filters "Name=name,Values=al2023-ami-2023*-x86_64" \
 #             "Name=state,Values=available" \
 #   --query 'Images[*].[ImageId,CreationDate]' \
 #   --region eu-central-1 \

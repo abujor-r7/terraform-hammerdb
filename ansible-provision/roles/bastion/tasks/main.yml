@@ -1,25 +1,47 @@
-- name: Add MySQL Yum Repository
-  yum_repository:
-    name: mysql57-community
-    description: MySQL 5.7 Community Server
-    baseurl: https://repo.mysql.com/yum/mysql-5.7-community/el/7/x86_64/
-    gpgcheck: no
-    gpgkey: https://repo.mysql.com/RPM-GPG-KEY-mysql
-    enabled: yes
-
-- name: Clean Yum Cache
-  command: yum clean all
-
-- name: Make Yum Cache
-  command: yum makecache
-
-- name: Import MySQL GPG Key
-  rpm_key:
+- name: Install Python 3.9 on Amazon Linux 2023
+  ansible.builtin.package:
+    name: python3.9
     state: present
+
+- name: Import MySQL GPG Key (General)
+  ansible.builtin.rpm_key:
     key: https://repo.mysql.com/RPM-GPG-KEY-mysql
+    state: present
+
+- name: Import MySQL GPG Key (Amazon Linux 2023)
+  ansible.builtin.rpm_key:
+    key: https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
+    state: present
+
+#debugging 
+# - name: Debug GPG Keys
+#   ansible.builtin.command:
+#     cmd: rpm -qa gpg-pubkey
+#   register: gpg_keys
+
+# - name: Show GPG Keys
+#   ansible.builtin.debug:
+#     var: gpg_keys.stdout_lines
+
+- name: Download MySQL 8.0 Repo RPM
+  ansible.builtin.get_url:
+    url: https://repo.mysql.com/mysql80-community-release-el9-1.noarch.rpm 
+    dest: /tmp/mysql80-release.rpm
+
+- name: Install MySQL 8.0 Repo RPM
+  ansible.builtin.package:
+    name: /tmp/mysql80-release.rpm
+    state: present
+
+- name: Remove conflicting MariaDB packages
+  ansible.builtin.package:
+    name: mariadb*
+    state: absent
 
 - name: Install MySQL Client
-  command: yum install -y mysql-community-client
+  ansible.builtin.package:
+    name: mysql-community-client
+    state: present
 
 - name: Set Environment Variables for DB Host
   lineinfile:
@@ -37,5 +59,4 @@
   lineinfile:
     path: /home/ec2-user/.bash_profile
     line: 'export DB_PASSWORD={{ db_password }}'
-    create: yes
-  
+    create: yes          

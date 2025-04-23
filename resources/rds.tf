@@ -1,6 +1,6 @@
 # Shared DB Subnet Group
 resource "aws_db_subnet_group" "hammerdb_subnet_group" {
-  name = "hammerdb-subnet-group-2"
+  name = "hammerdb-subnet-group"
   subnet_ids = [
     aws_subnet.public_a.id,
     aws_subnet.public_b.id,
