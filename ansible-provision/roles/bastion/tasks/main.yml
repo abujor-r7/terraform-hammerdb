@@ -3,25 +3,13 @@
     name: python3.9
     state: present
 
-- name: Import MySQL GPG Key (General)
+- name: Import MySQL GPG Keys
   ansible.builtin.rpm_key:
-    key: https://repo.mysql.com/RPM-GPG-KEY-mysql
+    key: "{{ item }}"
     state: present
-
-- name: Import MySQL GPG Key (Amazon Linux 2023)
-  ansible.builtin.rpm_key:
-    key: https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
-    state: present
-
-#debugging 
-# - name: Debug GPG Keys
-#   ansible.builtin.command:
-#     cmd: rpm -qa gpg-pubkey
-#   register: gpg_keys
-
-# - name: Show GPG Keys
-#   ansible.builtin.debug:
-#     var: gpg_keys.stdout_lines
+  loop:
+    - https://repo.mysql.com/RPM-GPG-KEY-mysql
+    - https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
 
 - name: Download MySQL 8.0 Repo RPM
   ansible.builtin.get_url:
@@ -33,10 +21,6 @@
     name: /tmp/mysql80-release.rpm
     state: present
 
-- name: Remove conflicting MariaDB packages
-  ansible.builtin.package:
-    name: mariadb*
-    state: absent
 
 - name: Install MySQL Client
   ansible.builtin.package:
