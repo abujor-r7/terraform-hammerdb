@@ -1,5 +1,11 @@
-data "aws_secretsmanager_secret" "aleksa_testbed" {
-  name = "aleksa/testbed"
+data "aws_secretsmanager_secret" "rds_credentials" {
+  name = "rds_testing/credentials"
+}
+data "aws_secretsmanager_secret_version" "rds_credentials_version" {
+  secret_id = data.aws_secretsmanager_secret.rds_credentials.id
+}
+locals {
+  rds_credentails = jsondecode(data.aws_secretsmanager_secret_version.rds_credentials_version.secret_string)
 }
 
 data "aws_secretsmanager_secret_version" "bastion_key" {

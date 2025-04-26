@@ -33,7 +33,7 @@ resource "aws_db_proxy" "testbed_proxy" {
   auth {
     auth_scheme = "SECRETS"
     iam_auth    = "DISABLED"
-    secret_arn  = data.aws_secretsmanager_secret.aleksa_testbed.arn
+    secret_arn  = data.aws_secretsmanager_secret.rds_credentials.arn
   }
   tags = {
     Name = "testbed-db-proxy"

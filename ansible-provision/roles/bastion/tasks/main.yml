@@ -44,3 +44,4 @@
     path: /home/ec2-user/.bash_profile
     line: 'export DB_PASSWORD={{ db_password }}'
     create: yes          
+    

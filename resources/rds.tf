@@ -20,8 +20,8 @@ resource "aws_db_instance" "hammerdb_dev" {
   storage_type           = "gp3"
   multi_az               = true
   db_name                = "hammerdb_dev"
-  username               = "admin"
-  password               = var.db_password
+  username               = local.rds_credentails.username
+  password               = local.rds_credentails.password
   skip_final_snapshot    = true
   publicly_accessible    = true
   vpc_security_group_ids = [aws_security_group.hammerdb_sg.id]
