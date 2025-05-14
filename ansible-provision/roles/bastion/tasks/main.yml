@@ -27,21 +27,28 @@
     name: mysql-community-client
     state: present
 
-- name: Set Environment Variables for DB Host
-  lineinfile:
-    path: /home/ec2-user/.bash_profile
-    line: 'export DB_HOST={{ db_host }}'
-    create: yes
+- name: Create .my.cnf for MySQL secure login (for ec2-user and root)
+  block:
+    - name: Create .my.cnf for ec2-user
+      ansible.builtin.copy:
+        dest: /home/ec2-user/.my.cnf
+        content: |
+          [client]
+          user={{ db_user}}
+          password={{ db_password }}
+          host={{ db_host }}
+        mode: '0600'
+        owner: ec2-user
+        group: ec2-user
 
-- name: Set Environment Variables for DB User
-  lineinfile:
-    path: /home/ec2-user/.bash_profile
-    line: 'export DB_USER={{ db_user }}'
-    create: yes
-
-- name: Set Environment Variables for DB Password  
-  lineinfile:
-    path: /home/ec2-user/.bash_profile
-    line: 'export DB_PASSWORD={{ db_password }}'
-    create: yes          
-    
+    - name: Create .my.cnf for root
+      ansible.builtin.copy:
+        dest: /root/.my.cnf
+        content: |
+          [client]
+          user={{ db_user}}
+          password={{ db_password }}
+          host={{ db_host }}
+        mode: '0600'
+        owner: root
+        group: root

@@ -5,6 +5,8 @@ resource "aws_ecs_service" "hammerdb_service" {
   launch_type     = "FARGATE"
   desired_count   = 1
 
+  enable_execute_command = true
+
   network_configuration {
     subnets = [
       aws_subnet.public_a.id,

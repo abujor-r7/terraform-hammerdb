@@ -10,6 +10,12 @@ resource "aws_ecs_task_definition" "hammerdb_task" {
   cpu                      = "1024"
   memory                   = "2048"
   execution_role_arn       = data.aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn            = data.aws_iam_role.ecs_task_execution_role.arn
+
+  runtime_platform {
+    cpu_architecture = "X86_64"
+    operating_system_family = "LINUX"
+  }
 
   container_definitions = jsonencode([
     {
