@@ -20,11 +20,23 @@ resource "aws_ecs_task_definition" "hammerdb_task" {
   container_definitions = jsonencode([
     {
       name      = "hammerdb"
-      image     = "tpcorg/hammerdb:latest"
+      image     = "tpcorg/hammerdb:latest-cloudtk"
       essential = true
       portMappings = [
         {
           containerPort = 5901
+          protocol      = "tcp"
+        },
+        {
+          containerPort = 8080
+          protocol      = "tcp"
+        },
+        {
+          containerPort = 8081
+          protocol      = "tcp"
+        },
+        {
+          containerPort = 8082
           protocol      = "tcp"
         }
       ]

@@ -7,14 +7,21 @@ resource "aws_security_group" "hammerdb_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
   }
 
   ingress {
     from_port   = 5901
     to_port     = 5901
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["212.36.185.222/32"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = ["212.36.185.222/32"]
   }
 
   egress {
